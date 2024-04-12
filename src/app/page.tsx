@@ -64,6 +64,7 @@ function Page() {
             onChange={(e) => setTodo(e.target.value)}
           />
           <button
+            className="bg-gray-400 p-2 w-[70px] m-1 rounded-2xl text-white"
             onClick={() =>
               setTodoItems([
                 ...toDoItems,

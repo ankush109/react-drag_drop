@@ -3,9 +3,9 @@ import { Draggable } from "react-beautiful-dnd";
 
 function ItemCard({ columnName, sendDataToParent, index, task }) {
   const columnClassMap = {
-    toDo: "bg-blue-200",
-    doing: "bg-yellow-200",
-    done: "bg-green-200",
+    toDo: "bg-blue-200 hover:bg-blue-500",
+    doing: "bg-red-200 hover:bg-red-500",
+    done: "bg-green-200 hover:bg-green-500 ",
   };
   const columnClass = columnClassMap[columnName];
   return (
@@ -14,7 +14,7 @@ function ItemCard({ columnName, sendDataToParent, index, task }) {
         <div className="flex ">
           <div
             key={index}
-            className={`flex p-3 w-full m-6 justify-between ${columnClass}`}
+            className={`flex p-3 w-full m-6 rounded-xl justify-between ${columnClass} `}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
