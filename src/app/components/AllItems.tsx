@@ -10,12 +10,12 @@ function AllItems({ setTodoItems, setDone, setDoing, toDoItems, doing, done }) {
   };
   const deleteDoingItem = (data) => {
     console.log(data, "data delted");
-    const filterdata = done?.filter((x) => x.id != data);
+    const filterdata = doing?.filter((x) => x.id != data);
     setDoing(filterdata);
   };
   const deleteDoneItem = (data) => {
     console.log(data, "data delted");
-    const filterdata = doing?.filter((x) => x.id != data);
+    const filterdata = done?.filter((x) => x.id != data);
     setDone(filterdata);
   };
   return (
