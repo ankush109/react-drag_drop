@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Periskope",
+  title: "Kanboard",
   description: "Developed by Ankush Banerjee",
 };
 
