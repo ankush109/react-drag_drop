@@ -1,24 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
-import ItemCard from "./components/ItemCard";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
+import AllItems from "./components/AllItems";
 
 function Page() {
-  const [toDoItems, setTodoItems] = useState([
-    {
-      title: "item 1",
-      id: "1",
-    },
-    {
-      title: "item 2",
-      id: "2",
-    },
-    {
-      title: "item 3",
-      id: "3",
-    },
-  ]);
+  const [toDoItems, setTodoItems] = useState([]);
   const [todo, setTodo] = useState("");
   const [doing, setDoing] = useState([]);
   const [done, SetDone] = useState([]);
@@ -66,6 +52,7 @@ function Page() {
     }
     setTodoItems(active);
     setDoing(completed);
+    SetDone(doneItems);
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -82,7 +69,7 @@ function Page() {
                 ...toDoItems,
                 {
                   title: todo,
-                  id: (toDoItems.length + 1).toString(),
+                  id: (Math.random() * toDoItems.length).toString(),
                 },
               ])
             }
@@ -91,67 +78,14 @@ function Page() {
           </button>
         </div>
         <div className="flex gap-10 mx-10 justify-evenly my-32">
-          <Droppable droppableId="toDoItems">
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="bg-green-600 h-[60vh] w-1/2 overflow-hidden overflow-y-scroll"
-              >
-                <h1 className="bg-yellow-400 p-3 flex items-center sticky top-0 justify-center">
-                  TO DO ITEMS
-                </h1>
-                {toDoItems?.map((todo, index) => (
-                  <ItemCard task={todo} index={index} />
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-          <Droppable droppableId="doingItems">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="bg-green-600 w-1/2   h-[60vh]  overflow-hidden overflow-y-scroll "
-              >
-                <h1 className="bg-yellow-400 p-3  flex items-center sticky top-0 justify-center">
-                  Doing
-                </h1>
-                {/* {doing?.map((doing, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="bg-red-100 flex p-3 m-6 justify-center"
-                    >
-                      {doing.title}
-                    </div>
-                  );
-                })} */}
-                {doing?.map((doing, index) => (
-                  <ItemCard task={doing} index={index} />
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-          <Droppable droppableId="doneItems">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="bg-green-600 w-1/2"
-              >
-                <h1 className="bg-yellow-400 p-3 flex items-center sticky top-0 justify-center">
-                  Done
-                </h1>
-                {done?.map((done, index) => (
-                  <ItemCard task={done} index={index} />
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <AllItems
+            setTodoItems={setTodoItems}
+            setDone={SetDone}
+            setDoing={setDoing}
+            toDoItems={toDoItems}
+            done={done}
+            doing={doing}
+          />
         </div>
       </div>
     </DragDropContext>

@@ -1,18 +1,36 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-function ItemCard({ index, task }) {
+function ItemCard({ columnName, sendDataToParent, index, task }) {
+  const columnClassMap = {
+    toDo: "bg-blue-200",
+    doing: "bg-yellow-200",
+    done: "bg-green-200",
+  };
+  const columnClass = columnClassMap[columnName];
   return (
     <Draggable draggableId={task.id.toString()} key={task.id} index={index}>
       {(provided) => (
-        <div
-          key={index}
-          className="bg-red-100 flex p-3 m-6 justify-center"
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          {task.title}
+        <div className="flex ">
+          <div
+            key={index}
+            className={`flex p-3 w-full m-6 justify-between ${columnClass}`}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <div>{task.title}</div>
+            <div>
+              <button
+                className="bg-red-500 p-1 rounded-lg text-white"
+                onClick={() => {
+                  sendDataToParent(task.id);
+                }}
+              >
+                delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </Draggable>
